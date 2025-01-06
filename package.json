@@ -1,11 +1,11 @@
 {
-  "name": "mcp-server-chatsum",
+  "name": "mcp-server-cex-bn",
   "version": "0.1.0",
-  "description": "Summarize your chat messages.",
+  "description": "MCP Server for Binance Spot Trading",
   "private": true,
   "type": "module",
   "bin": {
-    "mcp-server-chatsum": "./build/index.js"
+    "mcp-server-cex-bn": "./build/index.js"
   },
   "files": [
     "build"
@@ -17,8 +17,10 @@
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
   "dependencies": {
+    "@binance/connector": "^3.2.0",
     "@modelcontextprotocol/sdk": "0.6.0",
     "dotenv": "^16.4.6",
+    "keytar": "^7.9.0",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
