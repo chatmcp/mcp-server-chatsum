@@ -184,12 +184,4 @@ pnpm inspector
 
 Inspector 将提供一个 URL，用于在浏览器中访问调试工具。
 
-## 交流社区
 
-- [MCP Server Telegram](https://t.me/+N0gv4O9SXio2YWU1)
-- [MCP Server Discord](https://discord.gg/RsYPRrnyqg)
-
-## 关于作者
-
-- [idoubi](https://bento.me/idoubi)
-- [跟艾逗笔学全栈开发](https://1024.pagen.io)
