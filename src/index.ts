@@ -31,7 +31,7 @@ import {
 
 const server = new Server(
   {
-    name: "mcp-server-chatsum",
+    name: "mcp-server-binance",
     version: "0.1.0",
   },
   {
