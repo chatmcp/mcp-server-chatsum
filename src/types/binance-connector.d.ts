@@ -27,10 +27,13 @@ declare module '@binance/connector' {
       data: Array<{
         symbol: string;
         orderId: number;
+        orderListId: number;
+        clientOrderId: string;
         price: string;
         origQty: string;
         executedQty: string;
         status: string;
+        timeInForce: string;
         type: string;
         side: string;
       }>;

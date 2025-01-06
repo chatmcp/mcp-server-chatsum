@@ -57,5 +57,8 @@ export async function getOpenOrders(symbol?: string): Promise<OrderResponse[]> {
 
   const params = symbol ? { symbol } : {};
   const response = await client.openOrders(params);
-  return response.data;
+  return response.data.map(order => ({
+    ...order,
+    transactTime: Date.now()
+  }));
 }
