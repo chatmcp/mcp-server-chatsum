@@ -110,6 +110,26 @@ try {
 }
 ```
 
+## 项目结构
+
+```
+.
+├── src/
+│   ├── index.ts                 # 服务器入口
+│   ├── services/
+│   │   ├── binance.ts          # 币安 API 集成
+│   │   ├── keystore.ts         # API 密钥管理
+│   │   └── tools.ts            # 交易工具实现
+│   └── types/
+│       ├── binance.ts          # 币安类型定义
+│       └── binance-connector.d.ts  # API 客户端类型
+├── README.md
+├── README_CN.md
+├── package.json
+├── pnpm-lock.yaml
+└── tsconfig.json
+```
+
 ## 开发
 
 1. 设置环境变量：

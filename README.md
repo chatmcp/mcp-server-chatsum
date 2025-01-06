@@ -112,6 +112,26 @@ try {
 }
 ```
 
+## Project Structure
+
+```
+.
+├── src/
+│   ├── index.ts                 # Server entry point
+│   ├── services/
+│   │   ├── binance.ts          # Binance API integration
+│   │   ├── keystore.ts         # API key management
+│   │   └── tools.ts            # Trading tools implementation
+│   └── types/
+│       ├── binance.ts          # Binance types
+│       └── binance-connector.d.ts  # API client types
+├── README.md
+├── README_CN.md
+├── package.json
+├── pnpm-lock.yaml
+└── tsconfig.json
+```
+
 ## Development
 
 1. Set up environment variables:
