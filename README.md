@@ -186,11 +186,4 @@ pnpm inspector
 
 The Inspector will provide a URL to access debugging tools in your browser.
 
-## Community
 
-- [MCP Server Telegram](https://t.me/+N0gv4O9SXio2YWU1)
-- [MCP Server Discord](https://discord.gg/RsYPRrnyqg)
-
-## About the author
-
-- [idoubi](https://bento.me/idoubi)
