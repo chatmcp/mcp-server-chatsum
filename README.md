@@ -1,6 +1,6 @@
 # mcp-server-cex-bn
 
-This MCP Server provides a robust interface for Binance spot trading operations.
+This MCP Server provides a robust interface for Binance trading operations, supporting both spot and USDⓈ-M futures trading.
 
 [中文说明](README_CN.md)
 
@@ -9,8 +9,11 @@ This MCP Server provides a robust interface for Binance spot trading operations.
 ### Trading Operations
 - Configure and store Binance API credentials securely
 - Execute spot trading operations (LIMIT/MARKET orders)
-- Monitor account balances
-- Track and manage open orders
+- Execute futures trading operations with advanced order types (STOP, TAKE_PROFIT, etc.)
+- Manage futures positions and leverage
+- Monitor account balances for both spot and futures
+- Track and manage open orders across markets
+- Access real-time funding rates
 - Cancel existing orders
 
 ### Tools
@@ -69,6 +72,60 @@ const orders = await getOpenOrders({
 });
 ```
 
+#### `create_futures_order`
+Create futures orders with advanced types:
+```typescript
+// LIMIT order with leverage
+await createFuturesOrder({
+  symbol: 'BTCUSDT',
+  side: 'BUY',
+  type: 'LIMIT',
+  quantity: '0.001',
+  price: '40000',
+  positionSide: 'LONG'
+});
+
+// STOP_MARKET order
+await createFuturesOrder({
+  symbol: 'BTCUSDT',
+  side: 'SELL',
+  type: 'STOP_MARKET',
+  quantity: '0.001',
+  stopPrice: '38000',
+  positionSide: 'LONG'
+});
+```
+
+#### `set_futures_leverage`
+Set leverage for a futures symbol:
+```typescript
+await setFuturesLeverage({
+  symbol: 'BTCUSDT',
+  leverage: 10 // 1-125x
+});
+```
+
+#### `get_futures_positions`
+Get all futures positions:
+```typescript
+const positions = await getFuturesPositions();
+// Returns array of positions with unrealized PnL, entry price, etc.
+```
+
+#### `get_futures_account`
+Get futures account information:
+```typescript
+const account = await getFuturesAccount();
+// Returns account details including margin, positions, balances
+```
+
+#### `get_funding_rate`
+Get funding rate for a futures symbol:
+```typescript
+const fundingRate = await getFundingRate('BTCUSDT');
+// Returns current funding rate and next funding time
+```
+
 ## Security Considerations
 
 - Never commit your API keys to version control
@@ -79,22 +136,28 @@ const orders = await getOpenOrders({
 ## Rate Limits
 
 - Respect Binance API rate limits
-- Default rate limits:
+- Default rate limits for spot trading:
   - 1200 requests per minute for order operations
   - 100 requests per second for market data
+- Default rate limits for futures trading:
+  - 2400 requests per minute for order operations
+  - 200 requests per second for market data
 - Implement proper error handling for rate limit errors
+- Use exponential backoff for rate limit handling
 
 ## Error Handling
 
 Common error scenarios:
-- Invalid API credentials
-- Insufficient balance
-- Invalid order parameters
+- Invalid API credentials (ApiKeyError)
+- Insufficient balance or margin (InsufficientMarginError)
+- Invalid order parameters (OrderValidationError)
+- Invalid position mode (InvalidPositionModeError)
 - Rate limit exceeded
-- Network connectivity issues
+- Network connectivity issues (BinanceClientError)
 
 Example error handling:
 ```typescript
+// Spot trading error handling
 try {
   await createSpotOrder({
     symbol: 'BTCUSDT',
@@ -104,10 +167,32 @@ try {
     price: '40000'
   });
 } catch (error) {
-  if (error.code === -2010) {
-    console.error('Insufficient balance');
-  } else if (error.code === -1021) {
-    console.error('Rate limit exceeded');
+  if (error instanceof InsufficientMarginError) {
+    console.error('Insufficient balance:', error.message);
+  } else if (error instanceof OrderValidationError) {
+    console.error('Invalid order parameters:', error.message);
+  } else if (error instanceof BinanceClientError) {
+    console.error('API error:', error.message);
+  }
+}
+
+// Futures trading error handling
+try {
+  await createFuturesOrder({
+    symbol: 'BTCUSDT',
+    side: 'BUY',
+    type: 'STOP_MARKET',
+    quantity: '0.001',
+    stopPrice: '40000',
+    positionSide: 'LONG'
+  });
+} catch (error) {
+  if (error instanceof InsufficientMarginError) {
+    console.error('Insufficient margin:', error.message);
+  } else if (error instanceof InvalidPositionModeError) {
+    console.error('Invalid position mode:', error.message);
+  } else if (error instanceof OrderValidationError) {
+    console.error('Invalid order parameters:', error.message);
   }
 }
 ```
@@ -119,11 +204,14 @@ try {
 ├── src/
 │   ├── index.ts                 # Server entry point
 │   ├── services/
-│   │   ├── binance.ts          # Binance API integration
+│   │   ├── binance.ts          # Spot trading operations
+│   │   ├── binanceFutures.ts   # Futures trading operations
 │   │   ├── keystore.ts         # API key management
 │   │   └── tools.ts            # Trading tools implementation
 │   └── types/
-│       ├── binance.ts          # Binance types
+│       ├── binance.ts          # Spot trading types
+│       ├── futures.ts          # Futures trading types
+│       ├── errors.ts           # Custom error definitions
 │       └── binance-connector.d.ts  # API client types
 ├── README.md
 ├── README_CN.md
@@ -185,5 +273,3 @@ pnpm inspector
 ```
 
 The Inspector will provide a URL to access debugging tools in your browser.
-
-
