@@ -17,7 +17,7 @@
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
   "dependencies": {
-    "@binance/connector": "^3.2.0",
+    "@binance/connector": "^3.6.0",
     "@modelcontextprotocol/sdk": "0.6.0",
     "@types/keytar": "^4.4.2",
     "dotenv": "^16.4.6",

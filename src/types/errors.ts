@@ -18,3 +18,17 @@ export class OrderValidationError extends Error {
     this.name = 'OrderValidationError';
   }
 }
+
+export class InsufficientMarginError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'InsufficientMarginError';
+  }
+}
+
+export class InvalidPositionModeError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'InvalidPositionModeError';
+  }
+}

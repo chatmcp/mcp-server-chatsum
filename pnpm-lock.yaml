@@ -9,11 +9,14 @@ importers:
   .:
     dependencies:
       '@binance/connector':
-        specifier: ^3.2.0
+        specifier: ^3.6.0
         version: 3.6.0
       '@modelcontextprotocol/sdk':
         specifier: 0.6.0
         version: 0.6.0
+      '@types/keytar':
+        specifier: ^4.4.2
+        version: 4.4.2
       dotenv:
         specifier: ^16.4.6
         version: 16.4.6
@@ -54,6 +57,10 @@ packages:
   '@tootallnate/once@1.1.2':
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
+
+  '@types/keytar@4.4.2':
+    resolution: {integrity: sha512-xtQcDj9ruGnMwvSu1E2BH4SFa5Dv2PvSPd0CKEBLN5hEj/v5YpXJY+B6hAfuKIbvEomD7vJTc/P1s1xPNh2kRw==}
+    deprecated: This is a stub types definition. keytar provides its own type definitions, so you do not need this installed.
 
   '@types/node@20.17.9':
     resolution: {integrity: sha512-0JOXkRyLanfGPE2QRCwgxhzlBAvaRdCNMcvbd7jFfpmD4eEXll7LRwy5ymJmyeZqk7Nh7eD2LeUyQ68BbndmXw==}
@@ -637,6 +644,10 @@ snapshots:
 
   '@tootallnate/once@1.1.2':
     optional: true
+
+  '@types/keytar@4.4.2':
+    dependencies:
+      keytar: 7.9.0
 
   '@types/node@20.17.9':
     dependencies:
