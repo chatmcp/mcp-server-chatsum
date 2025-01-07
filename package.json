@@ -19,6 +19,7 @@
   "dependencies": {
     "@binance/connector": "^3.2.0",
     "@modelcontextprotocol/sdk": "0.6.0",
+    "@types/keytar": "^4.4.2",
     "dotenv": "^16.4.6",
     "keytar": "^7.9.0",
     "sqlite3": "^5.1.7"
